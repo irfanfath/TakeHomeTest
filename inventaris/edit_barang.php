@@ -1,19 +1,13 @@
 <?php session_start();
-include_once("../config.php");
+include_once("./config.php");
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_barang DESC");
-
-if( !isset($_SESSION['admin']) )
-{
-  header('location:./../'.$_SESSION['akses']);
-  exit();
-}
 
 $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
 ?>
 <?php
 // include database connection file
-include_once("../config.php");
+include_once("./config.php");
  
 // Check if form is submitted for user update, then redirect to homepage after update
 if(isset($_POST['update']))
@@ -51,11 +45,11 @@ while($user_data = mysqli_fetch_array($result))
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="shortcut icon" href="../images/icon.ico">
+	<link rel="shortcut icon" href="./images/icon.ico">
 	<!--Import Google Icon Font-->
-    <link href="../fonts/material.css" rel="stylesheet">
+    <link href="./fonts/material.css" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style type="text/css">

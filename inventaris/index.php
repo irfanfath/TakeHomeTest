@@ -1,118 +1,152 @@
 <?php
-session_start();
+$user = "localhost";
+$name = "root";
+$pass = "";
+$dbname = "inventaris";
 
-if( isset($_SESSION['akses']) )
-{
-  header('location:'.$_SESSION['akses']);
-  exit();
+$con = mysqli_connect($user,$name,$pass,$dbname);
+
+if (!$con){
+  die ("Database Tidak Ada : " . mysqli_connect_error());
 }
+$kueri = mysqli_query($con, "SELECT * FROM users");
 
-$error = '';
-if( isset($_SESSION['error']) ) {
+$data = array ();
+while (($row = mysqli_fetch_array($kueri)) != null){
+  $data[] = $row;
+}
+  $cont = count ($data);
+  $jml = "".$cont;
 
-  $error = $_SESSION['error']; 
+  $kueri2 = mysqli_query($con, "SELECT * FROM gudang_barang");
 
-  unset($_SESSION['error']);
-} ?>
+$data2 = array ();
+while (($row = mysqli_fetch_array($kueri2)) != null){
+  $data2[] = $row;
+}
+  $cont2 = count ($data2);
+  $jml2 = "".$cont2;
+$nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
-<?php echo $error;?>
+$kueri3 = mysqli_query($con, "SELECT * FROM barang_keluar");
+ 
+  $data3 = array ();
+  while (($row = mysqli_fetch_array($kueri3)) != null){
+    $data3[] = $row;
+  }
+    $cont3 = count ($data3);
+    $jml3 = "".$cont3; 
+
+
+  $kueri4 = mysqli_query($con, "SELECT * FROM gudang_barang");
+ 
+  $data4 = array ();
+  while (($row = mysqli_fetch_array($kueri4)) != null){
+    $data4[] = $row;
+  }
+    $cont4 = count ($data4);
+    $jml4 = "".$cont4;
+    
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Masuk</title>
-	<link rel="shortcut icon" href="images/icon.ico">
+	<title>Dashboard</title>
+	<link rel="shortcut icon" href="../images/icon.ico">
 	<!--Import Google Icon Font-->
-      <link href="fonts/material.css" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      	<style type="text/css">
-	       /* label color */
-	       .e-input-field label {
-	         color: #000;
-	       }
-	       /* label focus color */
-	       .e-input-field input[type=text]:focus + label,.e-input-field input[type=password]:focus + label {
-	         color: #d32f2f !important;
-	       }
-	       /* label underline focus color */
-	       .e-input-field input[type=text]:focus,.e-input-field input[type=password]:focus {
-	         border-bottom: 1px solid #d32f2f !important;
-	         box-shadow: 0 1px 0 0 #d32f2f !important;
-	       }
-	       /* valid color */
-	       .e-input-field input[type=text].valid,.e-input-field input[type=password].valid {
-	         border-bottom: 1px solid #d32f2f !important;
-	         box-shadow: 0 1px 0 0 #d32f2f !important;
-	       }
-	       /* invalid color */
-	       .e-input-field input[type=text].invalid,.e-input-field input[type=password].invalid {
-	         border-bottom: 1px solid #d32f2f !important;
-	         box-shadow: 0 1px 0 0 #d32f2f !important;
-	       }
-	       /* icon prefix focus color */
-	       .e-input-field .prefix.active {
-	         color: #d32f2f !important;
-	       }
-
-	       body {
-	          background: url(images/bg.jpg) no-repeat fixed;
-	          -webkit-background-size: 100% 100%;
-	          -moz-background-size: 100% 100%;
-	          -o-background-size: 100% 100%;
-	          background-size: 100% 100%;
-	        }
-	    </style>
-
+    <link href="./fonts/material.css" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+    	.btn.modal-trigger{display:block; width:100%; padding:30px;line-height:0px}
+    </style>
 </head>
 <body>
-	<div class="row" style="margin-top:10%;">
-		<div class="container">
-			<!--Form Login-->
-			<form method="POST" action="check-login.php">
-				<div class="col s12 m12 l6 offset-l3 card-panel z-depth white">
-					<div class="card-title center">
-						<h4>Masuk</h4>
-					</div>
+	<div class="row">
+		<!--header-->
+		<header>
+			<!--TopNav-->
+	        <nav class="row top-nav red darken-2">
+	    		<div class="container">
+	    			<div class="col offset-l2 nav-wrapper">
+	    				<a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
+	    				<a class="page-title">Beranda</a>
+	    			</div>
+	    		</div>
+			</nav>
 
-					<!--input text nama pengguna-->
-					<div class="col s12 m12 l12 input-field e-input-field">
-						<i class="material-icons prefix">account_circle</i>
-						<input type="text" name="username" id="icon_prefix" class="validate">
-						<label for="icon_prefix">Nama Pengguna</label>
-					</div>
+			<!--Sidenav-->
+			<ul id="slide-out" class="side-nav fixed">            
+	            <li class="no-padding">
+		            <ul class="collapsible collapsible-accordion">           
+		                <li><div class="divider" style="margin-top:15%;"></div></li>
+		                <li><a href="index.php" class="collapsible-header">Beranda<i class="material-icons">home</i></a></li>
+						<li><a href="tambah_barang.php" class="collapsible-header">Tambah Data Barang<i class="material-icons">edit</i></a></li>
+						<li><a href="data_barang.php" class="collapsible-header">Edit Data Barang<i class="material-icons">edit</i></a></li>
+						<li><a href="gudang_barang.php" class="collapsible-header">Gudang Barang<i class="material-icons">person</i></a></li>
+		            </ul>
+	            </li>
+	        </ul>
+		</header>
+		<!--end of header-->
 
-					<!--input text password-->
-					<div class="col s12 m12 l12 input-field e-input-field">
-						<i class="material-icons prefix">lock</i>
-						<input type="password" name="password" id="icon_prefix" class="validate">
-						<label for="icon_prefix">Kata Sandi</label>
-					</div>
+		<!--content-->
+		<main>
+			<div class="row container">
+				<div class="col s12 m12 l9 offset-l3">
 
-					<!--Button-->
-					<div class="row">
-						<div class="col s12 m12 l12 center">
-							<input name="login" type="submit" value="Masuk" class="modal-action modal-close waves-effect waves-light btn red darken-2">
-						</div>
-                  	</div>
+	                <!--content tambah barang-->
+					<div class="col s12 m6 l6">
+		                <div class="card blue-grey lighten-5">
+		                    <div class="card-content red-text text-darken-2">
+			                    <span class="card-title">Edit Barang
+			                        <i class="medium material-icons left">archive</i>
+			                        <p class="right"><?php echo $jml2; ?></p>
+			                    </span>
+		                    </div>
+		                    
+		                    <div class="card-action">
+		                    	<i class="material-icons left red-text text-darken-2">visibility</i>
+		                    	<a href="data_barang.php" class="red-text text-darken-2">Lihat</a>
+		                    </div>
+		                </div>
+	                </div>
+
+	                <!--content Gudang-->
+					<div class="col s12 m6 l6">
+		                <div class="card blue-grey lighten-5">
+		                    <div class="card-content red-text text-darken-2">
+			                    <span class="card-title">Gudang Barang
+			                        <i class="medium material-icons left">inbox</i>
+			                        <p class="right"><?php echo $jml4; ?></p>
+			                    </span>
+		                    </div>
+		                    
+		                    <div class="card-action">
+		                    	<i class="material-icons left red-text text-darken-2">visibility</i>
+		                    	<a href="gudang_barang.php" class="red-text text-darken-2">Lihat</a>
+		                    </div>
+		                </div>
+	                </div>
 
 				</div>
-			</form>
-		</div>		
+			</div>
+		</main>
+        <!--end of content-->
+
+
 	</div>
 
-
-
-	<!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-      <script>
-        $( document ).ready(function(){
-          Materialize.updateTextFields();
-          $('.modal').modal();
-        })
-      </script>
+	<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/materialize.min.js"></script>
+	<script type="text/javascript">
+	  	$(document).ready(function(){
+	    	$('.collapsible').collapsible();
+	    	$(".button-collapse").sideNav();
+		});
+	</script>
 </body>
 </html>

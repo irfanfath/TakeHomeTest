@@ -1,13 +1,7 @@
 <?php session_start();
-include_once("../config.php");
+include_once("./config.php");
 $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_barang DESC");
-
-if( !isset($_SESSION['admin']) )
-{
-  header('location:./../'.$_SESSION['akses']);
-  exit();
-}
 
 $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
@@ -16,11 +10,11 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="shortcut icon" href="../images/icon.ico">
+	<link rel="shortcut icon" href="./images/icon.ico">
 	<!--Import Google Icon Font-->
-    <link href="../fonts/material.css" rel="stylesheet">
+    <link href="./fonts/material.css" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style type="text/css">
@@ -70,22 +64,12 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 			<!--Sidenav-->
 			<ul id="slide-out" class="side-nav fixed">            
 	            <li class="no-padding">
-		            <ul class="collapsible collapsible-accordion">
-		                <li>
-		                	<div class="user-view">
-		                    	<div class="background" style="margin-bottom:-15%;">
-		                    		<img src="../images/bg.jpg">
-		                    	</div>
-		                		<span class="white-text name"><?php echo $nama; ?><i class="material-icons left">account_circle</i></span>
-		                	</div>
-		                </li>               
+		            <ul class="collapsible collapsible-accordion">           
 		                <li><div class="divider" style="margin-top:15%;"></div></li>
 		                <li><a href="index.php" class="collapsible-header">Beranda<i class="material-icons">home</i></a></li>
 						<li><a href="tambah_barang.php" class="collapsible-header">Tambah Data Barang<i class="material-icons">edit</i></a></li>
 						<li><a href="data_barang.php" class="collapsible-header">Edit Data Barang<i class="material-icons">edit</i></a></li>
 						<li><a href="gudang_barang.php" class="collapsible-header">Gudang Barang<i class="material-icons">person</i></a></li>
-		                <li><a href="../logout.php" class="collapsible-header">Keluar<i class="material-icons">exit_to_app</i></a></li>
-
 		            </ul>
 	            </li>
 	        </ul>
