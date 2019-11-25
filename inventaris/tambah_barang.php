@@ -133,7 +133,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_bara
 												$stok = $_POST['stok'];
 												
 												// include database connection file
-												include_once("../config.php");
+												include_once("./config.php");
 													
 												// Insert user data into table
 												$result = mysqli_query($koneksi, "INSERT INTO gudang_barang(nama_barang,harga_beli,harga_jual,stok) VALUES('$nama_barang','$harga_beli','$harga_jual','$stok')"); 
@@ -148,8 +148,8 @@ $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_bara
 								</div>
 							</div>
 
-	<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="../js/materialize.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="./js/materialize.min.js"></script>
 
 	<script>
 		function hanyaAngka(evt) {
