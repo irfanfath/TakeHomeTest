@@ -131,11 +131,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_bara
 												$harga_beli = $_POST['harga_beli'];
 												$harga_jual = $_POST['harga_jual'];
 												$stok = $_POST['stok'];
-												
-												// include database connection file
-												include_once("./config.php");
-													
-												// Insert user data into table
+																								// Insert user data into table
 												$result = mysqli_query($koneksi, "INSERT INTO gudang_barang(nama_barang,harga_beli,harga_jual,stok) VALUES('$nama_barang','$harga_beli','$harga_jual','$stok')"); 
 													if ($result){
 														echo "<script>alert('Tambah Barang Berhasil ! Nama Barang : $nama_barang')</script>";
