@@ -6,8 +6,6 @@ $limit_start = ($page - 1) * $limit;
           
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang LIMIT ".$limit_start.",".$limit);
 
-$nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
-
 ?>
 <!DOCTYPE html>
 <html>

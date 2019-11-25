@@ -1,15 +1,7 @@
 <?php
-$user = "localhost";
-$name = "root";
-$pass = "";
-$dbname = "inventaris";
+include_once("./config.php");
 
-$con = mysqli_connect($user,$name,$pass,$dbname);
-
-if (!$con){
-  die ("Database Tidak Ada : " . mysqli_connect_error());
-}
-$kueri = mysqli_query($con, "SELECT * FROM users");
+$kueri = mysqli_query($koneksi, "SELECT * FROM users");
 
 $data = array ();
 while (($row = mysqli_fetch_array($kueri)) != null){
@@ -18,7 +10,7 @@ while (($row = mysqli_fetch_array($kueri)) != null){
   $cont = count ($data);
   $jml = "".$cont;
 
-  $kueri2 = mysqli_query($con, "SELECT * FROM gudang_barang");
+  $kueri2 = mysqli_query($koneksi, "SELECT * FROM gudang_barang");
 
 $data2 = array ();
 while (($row = mysqli_fetch_array($kueri2)) != null){
@@ -28,7 +20,7 @@ while (($row = mysqli_fetch_array($kueri2)) != null){
   $jml2 = "".$cont2;
 $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
-$kueri3 = mysqli_query($con, "SELECT * FROM barang_keluar");
+$kueri3 = mysqli_query($koneksi, "SELECT * FROM barang_keluar");
  
   $data3 = array ();
   while (($row = mysqli_fetch_array($kueri3)) != null){
@@ -38,7 +30,7 @@ $kueri3 = mysqli_query($con, "SELECT * FROM barang_keluar");
     $jml3 = "".$cont3; 
 
 
-  $kueri4 = mysqli_query($con, "SELECT * FROM gudang_barang");
+  $kueri4 = mysqli_query($koneksi, "SELECT * FROM gudang_barang");
  
   $data4 = array ();
   while (($row = mysqli_fetch_array($kueri4)) != null){

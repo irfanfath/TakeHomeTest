@@ -1,7 +1,6 @@
 <?php 
 include_once("./config.php");
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_barang DESC"); 
-$nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
 ?>
 <!DOCTYPE html>

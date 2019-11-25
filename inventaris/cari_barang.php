@@ -1,9 +1,7 @@
 <?php session_start();
 include_once("./config.php");
-$conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_barang DESC");
 
-$nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
 ?>
 <!DOCTYPE html>
@@ -102,7 +100,7 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 			                    $no = 1; //buat urutan nomer
 			                    $cari = $_POST['cari'];
 			                    $sql = "SELECT * FROM gudang_barang WHERE nama_barang LIKE '%$cari%' OR harga_beli LIKE '%$cari%' OR harga_jual LIKE '%$cari%' OR stok LIKE '%$cari%'";
-			                    $query = mysqli_query($conn,$sql);
+			                    $query = mysqli_query($koneksi,$sql);
 			                    
 			                      if($data = mysqli_fetch_array($query)){
 			                        $test = $data['nama_barang'];

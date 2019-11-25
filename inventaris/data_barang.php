@@ -1,7 +1,6 @@
 <?php 
 include_once("./config.php");
 $result = mysqli_query($koneksi, "SELECT * FROM gudang_barang ORDER BY nama_barang DESC");
-$nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 
 ?>
 <!DOCTYPE html>
@@ -115,7 +114,7 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
 				                echo "<td>".$user_data['harga_beli']."</td>";
 				                echo "<td>".$user_data['harga_jual']."</td>";
 			                    echo "<td>".$user_data['stok']."</td>"; 
-				                echo "<td> <a href='edit_barang.php?id=$user_data[id]' style='text-decoration: none;'><i class='material-icons' title='Edit $test'>mode_edit</i></a> | <a data-id='1' class='hapus' href='hapus_barang.php?id=$user_data[id]' style='text-decoration: none;'><i class='material-icons' title='Hapus $test'>delete</i></a> </td></tr>";  
+				                echo "<td> <a href='edit_barang.php?id=$user_data[id]' style='text-decoration: none;'><i class='material-icons' title='Edit $test'>mode_edit</i></a> | <a data-id='1' class='hapus' href='hapus_barang.php?id=$user_data[id]' style='text-decoration: none;'><i class='material-icons' title='Hapus $test'>delete</i></a> </td></tr>";
 				            }
 
 							?>
@@ -129,9 +128,9 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
         <!--end of content-->
 	</div>
 
-		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="../js/materialize.min.js"></script>
-		<script>
+	<script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="./js/materialize.min.js"></script>
+	<script>
         $(".hapus").click(function () {
         var jawab = confirm("Anda Yakin Ingin Menghapus Barang ?");
         if (jawab === true) {
@@ -149,32 +148,14 @@ $nama = ( isset($_SESSION['user']) ) ? $_SESSION['user'] : '';
             return false;
         }
         });
-    	</script>
-
-	<script>
-		function hanyaAngka(evt) {
-		  var charCode = (evt.which) ? evt.which : event.keyCode
-		   if (charCode > 31 && (charCode < 48 || charCode > 57))
- 
-		    return false;
-		  return true;
-		}
-	</script>
-
+    </script>
 		<script>
-			var modal = document.getElementById("myModal");
-			var btn = document.getElementById("myBtn");
-			var span = document.getElementsByClassName("close")[0];
-			btn.onclick = function() {
-			modal.style.display = "block";
-			}
-			span.onclick = function() {
-			modal.style.display = "none";
-			}
-			window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
+			function hanyaAngka(evt) {
+			var charCode = (evt.which) ? evt.which : event.keyCode
+			if (charCode > 31 && (charCode < 48 || charCode > 57))
+	
+				return false;
+			return true;
 			}
 		</script>
 </body>
